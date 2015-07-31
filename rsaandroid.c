@@ -18,46 +18,43 @@ long int p,q,n,t,flag,e[100],d[100],temp[100],j,m[100],en[100],i;
 char msg[100];
 
 
-long int cd(long int x)
-{
+//Continues to add the value of t onto k until k is divisible by x
+//and returns the result of the division
+long int cd(long int x) {
     long int k=1;
-    while(1)
-    {
+    while(1) {
         k=k+t;
-        if(k%x==0)
-        return(k/x);
+        if(k%x==0) {
+            return(k/x);
+        }
     }
 }
 
-
-int prime(long int pr)
-{
+//determines if a number is prime. 
+//Returns 0 if not, 1 if it is.
+int prime(long int pr) {
     j=sqrt((double)pr);
-    for(int i=2;i<=j;i++)
-    {
-        if(pr%i==0)
-        return 0;
+    for(int i=2;i<=j;i++) {
+        if(pr%i==0) {
+            return 0;
+        }
     }
     return 1;
 }
 
 
-void ce()
-{
+void ce() {
     int k = 0;
-    for(i=2;i<t;i++)
-    {
+    for(i=2;i<t;i++) {
         if(t % i == 0) {
         }
-        else 
-        {
+        else {
             flag=prime(i);
-            if(flag==1&&i!=p&&i!=q)
-            {
+            if(flag==1&&i!=p&&i!=q) {
                 e[k]=i;
                 flag= cd(e[k]);
-                if(flag>0)
-                {
+
+                if(flag>0) {
                     d[k]=flag;
                     k++;
                 }
@@ -85,9 +82,8 @@ long GetTickCount() {
 //MAIN STARTS
 
 int main() {
-    printf("Zachary,");
-    printf("welcome");
 
+    //declaring variables to be used for timing, usage of OpenCL, etc.
     char build_c[4096];
     clock_t begin, end;
     double time_spent;
@@ -104,51 +100,49 @@ int main() {
     dev_key= &key;
     dev_den= &den;
     int length1=800;
+
     // seed random number generator
     srand(GetTickCount());
     buf = (int*)malloc(worksize);
-    for ( i = 0; i < length; i++ )
-    {
+    for ( i = 0; i < length; i++ ) {
         buf [i] = rand ( )%length1;
     }
+
     // Fetch the Platform and Device IDs; we only want one.
     error=clGetPlatformIDs(1, &platform, &platforms);
     if (error != CL_SUCCESS) {
             printf("\n Error number %d", error);
     }
     error=clGetDeviceIDs(platform, CL_DEVICE_TYPE_GPU, 1, &device, &devices);
-    //error=clGetDeviceIDs(platform, CL_DEVICE_TYPE_GPU, 1, device, NULL);
-    if (error != CL_SUCCESS)
-    {
+    if (error != CL_SUCCESS) {
         printf("\n Error number %d", error);
     }
+
     //calculating e and d
     printf("\nENTER FIRST PRIME NUMBER\n");
     scanf("%ld",&p);
     flag=prime(p);
-    if(flag==0)
-    {
+    if(flag==0) {
         printf("\nWRONG INPUT\n");
         exit(1);
     }
     printf("\nENTER ANOTHER PRIME NUMBER\n");
     scanf("%ld",&q);
     flag=prime(q);
-    //printf("\nJust ran the prime function");
-    if(flag==0||p==q)
-    {
+    if(flag==0||p==q) {
         printf("\nWRONG INPUT\n");
         exit(1);
     }
     fflush(stdin);
     n=p*q;
     t=(p-1)*(q-1);
-    //printf("\nAbout to run ce() function");
+
     ce();
-    //printf("\nJust ran the ce() function");
+
     printf("\nPOSSIBLE VALUES OF e AND d AND n ARE\n");
-    for(i=0;i<j-1;i++)
-    printf("\n%ld\t%ld \t%d",e[i],d[i],(int)n); 
+    for(i=0;i<j-1;i++) {
+        printf("\n%ld\t%ld \t%d",e[i],d[i],(int)n); 
+    }
 
     // ENTER KEY VALUE
     printf("\nEnter key parameter e from above set of values 1:");
@@ -162,7 +156,7 @@ int main() {
         printf("\n Error number %d", error);
     }
 
-    //CREATE COMMAND QUEUE        
+    //CREATE COMMAND QUEUE
     cl_command_queue cq = clCreateCommandQueue(context, device, 0, &error);
     if (error != CL_SUCCESS) {
         printf("\n Error number %d", error);
@@ -184,8 +178,7 @@ int main() {
 
     // Submit the source code of the example kernel to OpenCL
     cl_program prog=clCreateProgramWithSource(context, 1, srcptr, &srcsize, &error);
-    if (error != CL_SUCCESS) 
-    {
+    if (error != CL_SUCCESS) {
         printf("\n Error number %d", error);
     }
 
