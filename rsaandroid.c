@@ -204,11 +204,24 @@ int main() {
     }
 
     //CREATE FILE
+    printf("\nAbout to open the kernel file");
+    fflush(stdout);
     FILE *fil=fopen("rsa.cl","r");
+    printf("\nJust opened the kernel file");
+    if (fil == NULL) {
+    	printf("Error");
+        fclose(fil);
+        fflush(stdout);
+        return -1;
+    }
     char *src;
+    printf("\nAbout to allocate memory");
     src = (char *)malloc(MAX_SOURCE_SIZE);
+    printf("\nAbout to read in from the kernel file");
     srcsize=fread(src, 1, MAX_SOURCE_SIZE, fil);
+    printf("\nJust read in from the kernel file");
     fclose(fil);
+    fflush(stdout);
     const char *srcptr[]={src};
 
     // Submit the source code of the example kernel to OpenCL
