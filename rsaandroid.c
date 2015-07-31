@@ -206,7 +206,7 @@ int main() {
     //CREATE FILE
     printf("\nAbout to open the kernel file");
     fflush(stdout);
-    FILE *fil=fopen("rsa.cl","r");
+    FILE *fil=fopen("/data/local/tmp/rsa.cl","r");
     printf("\nJust opened the kernel file");
     if (fil == NULL) {
     	printf("Error");
