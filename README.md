@@ -5,10 +5,8 @@ To get this running, do the following:
 
 In 
 
-Dependencies/lib/
-
-
-There is one file called 
+    Dependencies/lib/
+There is one file called
 
     libOpenCL.so
 It may or may not work for your android device; if not, replace it with the version from your device.
@@ -16,6 +14,7 @@ I found mine in:
 
     /system/vendor/lib
 
+In the terminal, type:
 
     make
     adb push rsa.cl /data/local/tmp
