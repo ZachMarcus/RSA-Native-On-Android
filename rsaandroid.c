@@ -14,20 +14,10 @@ int * buf;
 int *dev_key,*dev_den;
 //DECLARATION FOR e,d and n
 
-/*
-#ifdef DEBUG
-#define LOGD(stmt) \
-    printf(stdout, stmt) \
-    flush(stdout)
-#else
-#define LOGD(stmt)
-#endif
-
-#define DEBUG*/
-
-
 long int p,q,n,t,flag,e[100],d[100],temp[100],j,m[100],en[100],i;
 char msg[100];
+
+
 long int cd(long int x)
 {
     long int k=1;
@@ -38,6 +28,8 @@ long int cd(long int x)
         return(k/x);
     }
 }
+
+
 int prime(long int pr)
 {
     j=sqrt((double)pr);
@@ -48,30 +40,13 @@ int prime(long int pr)
     }
     return 1;
 }
+
+
 void ce()
 {
-    printf("\nEntered ce() function");
     int k = 0;
     for(i=2;i<t;i++)
     {
-        /*if(t%j==0) {
-            continue;
-        }
-        printf("\nRunning prime(j)");
-        flag=prime(j);
-        if(flag==1&&j!=p&&j!=q)
-        {
-            e[k]=j;
-            flag= cd(e[k]);
-            if(flag>0)
-            {
-                d[k]=flag;
-                k++;
-            }
-            if(k==99) {
-            break;
-            }
-        }*/
         if(t % i == 0) {
         }
         else 
@@ -95,12 +70,10 @@ void ce()
 }
 
 
-
-//My implementation of GetTickCount() for Linux systems.
-//This code was written in Windows and this function is usually available in the
+//Implementation of GetTickCount() for Linux systems.
+//This code was originally written in Windows and this function is usually available in the
 //windows.h include file
 #include <sys/time.h>
-
 long GetTickCount() {
 	struct timeval tv;
 	if (gettimeofday(&tv, NULL) != 0) {
@@ -109,13 +82,12 @@ long GetTickCount() {
 	return (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
 }
 
-
-
 //MAIN STARTS
 
 int main() {
     printf("Zachary,");
     printf("welcome");
+
     char build_c[4096];
     clock_t begin, end;
     double time_spent;
@@ -144,15 +116,12 @@ int main() {
     if (error != CL_SUCCESS) {
             printf("\n Error number %d", error);
     }
-    printf("\nJust fetched PlatformIDs");
     error=clGetDeviceIDs(platform, CL_DEVICE_TYPE_GPU, 1, &device, &devices);
     //error=clGetDeviceIDs(platform, CL_DEVICE_TYPE_GPU, 1, device, NULL);
     if (error != CL_SUCCESS)
     {
         printf("\n Error number %d", error);
     }
-    printf("\nJust fetched DeviceIDs");
-
     //calculating e and d
     printf("\nENTER FIRST PRIME NUMBER\n");
     scanf("%ld",&p);
@@ -186,17 +155,13 @@ int main() {
     scanf("%d",dev_key);
     printf("\nEnter key parameter n from above set of values 2:");
     scanf("%d",dev_den);
-    printf("\nTrying to do something with properties:");
 
-
-    printf("\nSomething from OpenCL worked!");
-    fflush(stdout);
     // CREATE CONTEXT
     cl_context context=clCreateContext(0, 1, &device, NULL, NULL, &error);
     if (error != CL_SUCCESS) {
         printf("\n Error number %d", error);
     }
-    printf("\nSuccessful clCreateContext\n");
+
     //CREATE COMMAND QUEUE        
     cl_command_queue cq = clCreateCommandQueue(context, device, 0, &error);
     if (error != CL_SUCCESS) {
@@ -204,24 +169,17 @@ int main() {
     }
 
     //CREATE FILE
-    printf("\nAbout to open the kernel file");
     fflush(stdout);
     FILE *fil=fopen("/data/local/tmp/rsa.cl","r");
-    printf("\nJust opened the kernel file");
     if (fil == NULL) {
-    	printf("Error");
+    	printf("Error, could not open the kernel.");
         fclose(fil);
-        fflush(stdout);
         return -1;
     }
     char *src;
-    printf("\nAbout to allocate memory");
     src = (char *)malloc(MAX_SOURCE_SIZE);
-    printf("\nAbout to read in from the kernel file");
     srcsize=fread(src, 1, MAX_SOURCE_SIZE, fil);
-    printf("\nJust read in from the kernel file");
     fclose(fil);
-    fflush(stdout);
     const char *srcptr[]={src};
 
     // Submit the source code of the example kernel to OpenCL
@@ -324,9 +282,9 @@ int main() {
     te = GetTickCount();
 
     // show the count difference
-    printf("%d ms\n", (int)(te - ts));
+    printf("\n%d ms\n\n", (int)(te - ts));
     time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
-    printf("Time=%f",time_spent);
+    printf("Time=%f\n\n",time_spent);
 }
 
 
