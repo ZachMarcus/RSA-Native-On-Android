@@ -188,26 +188,15 @@ int main() {
     scanf("%d",dev_den);
     printf("\nTrying to do something with properties:");
 
-    cl_context_properties properties[]={
-        CL_CONTEXT_PLATFORM, (cl_context_properties)platform,
-        0};
-
-    //cl_context_properties properties[] = 
-    //    { CL_CONTEXT_PLATFORM, (cl_context_properties)(platforms[0])(), 0};
-
-
-    /// this one might work maybe if I'm lucky
-    //cl_context_properties properties[] = {
-    //    CL_CONTEXT_PLATFORM, platform, 0};
-
 
     printf("\nSomething from OpenCL worked!");
+    fflush(stdout);
     // CREATE CONTEXT
-    cl_context context=clCreateContext(properties, 1, &device, NULL, NULL, &error);
+    cl_context context=clCreateContext(0, 1, &device, NULL, NULL, &error);
     if (error != CL_SUCCESS) {
         printf("\n Error number %d", error);
     }
-
+    printf("\nSuccessful clCreateContext\n");
     //CREATE COMMAND QUEUE        
     cl_command_queue cq = clCreateCommandQueue(context, device, 0, &error);
     if (error != CL_SUCCESS) {
