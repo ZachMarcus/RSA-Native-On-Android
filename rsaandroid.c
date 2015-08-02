@@ -18,8 +18,8 @@ long int p,q,n,t,flag,e[100],d[100],temp[100],j,m[100],en[100],i;
 char msg[100];
 
 
-//Continues to add the value of t onto k until k is divisible by x
-//and returns the result of the division
+//Continually increments k by t, until k is divisible by x.
+//Returns the result of this division.
 long int cd(long int x) {
     long int k=1;
     while(1) {
@@ -30,8 +30,8 @@ long int cd(long int x) {
     }
 }
 
-//determines if a number is prime. 
-//Returns 0 if not, 1 if it is.
+//determines if the given number is prime. 
+//Returns 0 if not, 1 if so.
 int prime(long int pr) {
     j=sqrt((double)pr);
     for(int i=2;i<=j;i++) {
@@ -43,10 +43,12 @@ int prime(long int pr) {
 }
 
 
+
 void ce() {
     int k = 0;
     for(i=2;i<t;i++) {
         if(t % i == 0) {
+            //nothing
         }
         else {
             flag=prime(i);
@@ -135,7 +137,7 @@ int main() {
     }
     fflush(stdin);
     n=p*q;
-    t=(p-1)*(q-1);
+    t=(p-1)*(q-1); // t = phi(n)
 
     ce();
 
@@ -275,9 +277,13 @@ int main() {
     te = GetTickCount();
 
     // show the count difference
-    printf("\n%d ms\n\n", (int)(te - ts));
+    //printf("\n%d ms\n\n", (int)(te - ts));
+    printf("\nAfter kernel compilation, the OpenCL portion of the execution took:\n%d ms\n\n", (int)(te - ts));
     time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
-    printf("Time=%f\n\n",time_spent);
+    printf("Total time of application=%f\n\n",time_spent);
+    //I'm not happy with either of these measurements for time yet, I'll be adding in 
+    // usage of clProfilingInfo
+
 }
 
 
