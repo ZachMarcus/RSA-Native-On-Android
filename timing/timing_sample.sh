@@ -6,17 +6,18 @@ n=255811
 
 echo value,time > out.csv
 
-for t in {1..2048}
-do
+t=1
+while [ $t -le 2048 ]; do
 	val=""
-
-	for i in {1..512}
-	do
+        i=1
+        while [ $i -le 512 ]; do
 		val=$val$(($RANDOM%10))
+                let i=i+1
 	done
+	time=`/data/local/tmp/rsac $key $n $val`
 
-	time=`./rsac $key $n $val`
-	
 	echo $val,$time	>> out.csv
-	printf "\rSamples Complete: $t"
+        echo "\rSamples Complete: $t"
+        let t=t+1
 done
+
