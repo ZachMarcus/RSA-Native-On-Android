@@ -21,7 +21,7 @@ int main(int argc, char *argv[]) {
 	clock_gettime(CLOCK_MONOTONIC, &end);
 
 	diff = BILLION * (end.tv_sec - start.tv_sec) + end.tv_nsec - start.tv_nsec;
-	printf("elapsed time = %llu nanoseconds\n", (long long unsigned int) diff);
+	printf("%llu", (long long unsigned int) diff);
 	return 0;
 }
 
