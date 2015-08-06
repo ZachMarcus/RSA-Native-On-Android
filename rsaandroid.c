@@ -91,7 +91,6 @@ int main() {
 
     uint64_t diff;
     struct timespec start, end;
-    clock_gettime(CLOCK_MONOTONIC, &start);/* mark start time */
 
     cl_int error;
     cl_platform_id platform;
@@ -153,6 +152,10 @@ int main() {
     scanf("%d",dev_key);
     printf("\nEnter key parameter n from above set of values 2:");
     scanf("%d",dev_den);
+
+
+    clock_gettime(CLOCK_MONOTONIC, &start);/* mark start time */
+
 
     // CREATE CONTEXT
     cl_context context=clCreateContext(0, 1, &device, NULL, NULL, &error);
