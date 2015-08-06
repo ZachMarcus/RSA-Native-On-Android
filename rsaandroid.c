@@ -7,6 +7,8 @@
 #include <CL/cl.h>
 
 #define MAX_SOURCE_SIZE (0x100000)
+#define BILLION 1000000000L
+
 // DECLARE GLOBALLY
 int length =512;
 int * buf;
@@ -95,7 +97,6 @@ int main() {
     cl_platform_id platform;
     cl_device_id device;
     cl_uint platforms, devices;
-    long te, ts;
     size_t srcsize,worksize=length*sizeof(int);
     int i;
     int key=5;
@@ -195,7 +196,6 @@ int main() {
         printf( "Build Log for %s_program:\n%s\n", "example",build_c );
     }
 
-    ts = GetTickCount();
     // Allocate memory for the kernel to work with
     cl_mem mem1, mem2, mem3,mem4;
     mem1=clCreateBuffer(context, CL_MEM_READ_WRITE, worksize, NULL, &error);
