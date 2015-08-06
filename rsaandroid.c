@@ -6,7 +6,6 @@
 #include <math.h>
 #include <CL/cl.h>
 
-
 #define MAX_SOURCE_SIZE (0x100000)
 // DECLARE GLOBALLY
 int length =512;
@@ -87,9 +86,11 @@ int main() {
 
     //declaring variables to be used for timing, usage of OpenCL, etc.
     char build_c[4096];
-    clock_t begin, end;
-    double time_spent;
-    begin = clock();
+
+    uint64_t diff;
+    struct timespec start, end;
+    clock_gettime(CLOCK_MONOTONIC, &start);/* mark start time */
+
     cl_int error;
     cl_platform_id platform;
     cl_device_id device;
@@ -273,14 +274,12 @@ int main() {
     }
 
     // STOP CLOCK
-    end = clock();
-    te = GetTickCount();
+    clock_gettime(CLOCK_MONOTONIC, &end);/* mark the end time */
+    
 
-    // show the count difference
-    //printf("\n%d ms\n\n", (int)(te - ts));
-    printf("\nAfter kernel compilation, the OpenCL portion of the execution took:\n%d ms\n\n", (int)(te - ts));
-    time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
-    printf("Total time of application=%f\n\n",time_spent);
+    diff = BILLION * (end.tv_sec - start.tv_sec) + end.tv_nsec - start.tv_nsec;
+    printf("elapsed time = %llu nanoseconds\n", (long long unsigned int) diff);
+
     //I'm not happy with either of these measurements for time yet, I'll be adding in 
     // usage of clProfilingInfo
 
