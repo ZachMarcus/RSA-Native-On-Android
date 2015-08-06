@@ -91,7 +91,6 @@ int main() {
 
     uint64_t diff;
     struct timespec start, end;
-    clock_gettime(CLOCK_MONOTONIC, &start);/* mark start time */
 
     cl_int error;
     cl_platform_id platform;
@@ -256,6 +255,9 @@ int main() {
 
     // Perform the operation    
     const size_t global_worksize=length;
+
+    clock_gettime(CLOCK_MONOTONIC, &start);/* mark start time */
+
     error=clEnqueueNDRangeKernel(cq, k_example, 1, NULL, &global_worksize, NULL, 0, NULL, NULL);
     if (error != CL_SUCCESS) {
         printf("\n Error number %d", error);
