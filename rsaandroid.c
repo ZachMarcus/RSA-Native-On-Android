@@ -122,36 +122,47 @@ int main() {
     }
 
     //calculating e and d
-    printf("\nENTER FIRST PRIME NUMBER\n");
-    scanf("%ld",&p);
+    //printf("\nENTER FIRST PRIME NUMBER\n");
+    //scanf("%ld",&p);
+    p = 59;
     flag=prime(p);
     if(flag==0) {
         printf("\nWRONG INPUT\n");
         exit(1);
     }
-    printf("\nENTER ANOTHER PRIME NUMBER\n");
-    scanf("%ld",&q);
+    //printf("\nENTER ANOTHER PRIME NUMBER\n");
+    //scanf("%ld",&q);
+    q = 83;
     flag=prime(q);
     if(flag==0||p==q) {
         printf("\nWRONG INPUT\n");
         exit(1);
     }
-    fflush(stdin);
+    //fflush(stdin);
     n=p*q;
     t=(p-1)*(q-1); // t = phi(n)
 
     ce();
 
-    printf("\nPOSSIBLE VALUES OF e AND d AND n ARE\n");
-    for(i=0;i<j-1;i++) {
-        printf("\n%ld\t%ld \t%d",e[i],d[i],(int)n); 
+    //printf("\nPOSSIBLE VALUES OF e AND d AND n ARE\n");
+    for(i = 0; i < (j - 1); i++) {
+        //printf("\n%ld\t%ld \t%d",e[i],d[i],(int)n); 
+        key = e[i];
+        den = d[i];
     }
 
     // ENTER KEY VALUE
-    printf("\nEnter key parameter e from above set of values 1:");
-    scanf("%d",dev_key);
-    printf("\nEnter key parameter n from above set of values 2:");
-    scanf("%d",dev_den);
+    //printf("\nEnter key parameter e from above set of values 1:");
+    //scanf("%d",dev_key);
+    //Should this be key parameter n from set of values 3, 
+    // or key parameter d from set of values 2?
+    //Looks like parameter d makes more sense.
+    //printf("\nEnter key parameter n from above set of values 2:");
+    //scanf("%d",dev_den);
+
+
+    clock_gettime(CLOCK_MONOTONIC, &start);/* mark start time */
+
 
     // CREATE CONTEXT
     cl_context context=clCreateContext(0, 1, &device, NULL, NULL, &error);
@@ -256,7 +267,7 @@ int main() {
     // Perform the operation    
     const size_t global_worksize=length;
 
-    clock_gettime(CLOCK_MONOTONIC, &start);/* mark start time */
+    //clock_gettime(CLOCK_MONOTONIC, &start);/* mark start time */
 
     error=clEnqueueNDRangeKernel(cq, k_example, 1, NULL, &global_worksize, NULL, 0, NULL, NULL);
     if (error != CL_SUCCESS) {
@@ -280,7 +291,7 @@ int main() {
     
 
     diff = BILLION * (end.tv_sec - start.tv_sec) + end.tv_nsec - start.tv_nsec;
-    printf("elapsed time = %llu nanoseconds\n", (long long unsigned int) diff);
+    printf("\nElapsed time = %llu nanoseconds\n", (long long unsigned int) diff);
 
     //I'm not happy with either of these measurements for time yet, I'll be adding in 
     // usage of clProfilingInfo
