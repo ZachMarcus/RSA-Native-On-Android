@@ -1,5 +1,0 @@
-C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\include
-gcc progname -o exec -L=library path -l libname -w
-./exec
-
-gcc rsacygwin.c -o res -L=C:\cygwin\usr\local\lib -lOpenCL -w
