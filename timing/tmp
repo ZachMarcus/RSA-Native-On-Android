@@ -1,5 +1,0 @@
-In file included from unit.c:8:0:
-/usr/include/gmpxx.h:24:18: fatal error: iosfwd: No such file or directory
- #include <iosfwd>
-                  ^
-compilation terminated.
