@@ -32,10 +32,10 @@ OpenSSL's RSA toolkit is capable of generating arbitrary length RSA keys and run
 The OpenSSL source code in `openssl-0.9.8_modified_src` has been modified to write the time taken by the decryption function, in nano seconds, to stdout. The script `timing_sample.sh` will run 16384 decryptions on random cyphertext, writing the timing data and cyphertext decrypted to a file (out.csv). This script uses a 2048 bit private key `private,pem` and it's corresponding public key `public.pem` with a public exponent of 65537 (`0x10000000000000001`) - this is the default public exponent selected by OpenSSL.
 
 ###Notes for running on Android
-Follow the direction given here: https://wiki.openssl.org/index.php/Android to install the directory, nothing that to do so, you must modify the `Setenv-android.sh` to contain the correct ANDROID_NDK Directory. 
+Follow the direction given here: https://wiki.openssl.org/index.php/Android to install the directory, noting that to do so, you must modify the `Setenv-android.sh` to contain the correct ANDROID_NDK Directory. 
 Then, go into `openssl-1.0.2d_modified_src/test`.
 Enter in:
-    arm-linux-androideabi-gcc --sysroot="$ANDROID_SYSROOT" -I/usr/local/ssl/android-19/include -pie -fPIE ideatest.c -o     ideatest.exe /usr/local/ssl/android-19/lib/libcrypto.a
+        arm-linux-androideabi-gcc --sysroot="$ANDROID_SYSROOT" -I/usr/local/ssl/android-19/include -pie -fPIE     ideatest.c -o     ideatest.exe /usr/local/ssl/android-19/lib/libcrypto.a
 The resulting binary will only run on an Android device
 
 
