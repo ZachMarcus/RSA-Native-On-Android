@@ -1,2 +1,5 @@
 rsac
 out.csv
+*.*~
+tmp
+*.out
