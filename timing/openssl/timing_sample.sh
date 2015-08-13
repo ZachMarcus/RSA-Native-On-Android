@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Feed OpenSSL a blank config file so that it doen't complain...
+export OPENSSL_CONF=`pwd`/openssl.cnf
+
 # Write a file header
 echo cyphertext,time_ns > out.csv
 
@@ -14,12 +17,12 @@ echo $plaintext > plaintext
 #plaintext_hex=`cat plaintext | hexdump -e '16/1 "%02x"'; printf "\n"`
 
 # Encrypt the plaintext, writing the output to a file
-./openssl-0.9.8_modified_src/apps/openssl rsautl -in plaintext -out cyphertext -inkey public.pem -pubin -encrypt
+./openssl-1.0.2d_modified_src/apps/openssl rsautl -in plaintext -out cyphertext -inkey public.pem -pubin -encrypt
 # Get the hex value of the cyphertext
 cyphertext_hex=`cat cyphertext | hexdump -e '16/1 "%02x"'; printf "\n"`
 
 # Decrypt the cryphertext and write the output to a file, recording the time taken
-time=`./openssl-0.9.8_modified_src/apps/openssl rsautl -in cyphertext -out decrypted -inkey private.pem -decrypt`
+time=`./openssl-1.0.2d_modified_src/apps/openssl rsautl -in cyphertext -out decrypted -inkey private.pem -decrypt`
 
 # Write the data to out data file
 echo $cyphertext_hex,$time >> out.csv
