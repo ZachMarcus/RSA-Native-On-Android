@@ -35,7 +35,9 @@ The OpenSSL source code in `openssl-0.9.8_modified_src` has been modified to wri
 Follow the direction given here: https://wiki.openssl.org/index.php/Android to install the directory, noting that to do so, you must modify the `Setenv-android.sh` to contain the correct ANDROID_NDK Directory. 
 Then, go into `openssl-1.0.2d_modified_src/test`.
 Enter in:
-        arm-linux-androideabi-gcc --sysroot="$ANDROID_SYSROOT" -I/usr/local/ssl/android-19/include -pie -fPIE     ideatest.c -o     ideatest.exe /usr/local/ssl/android-19/lib/libcrypto.a
+
+    `arm-linux-androideabi-gcc --sysroot="$ANDROID_SYSROOT" -I/usr/local/ssl/android-19/include -pie -fPIE     ideatest.c -o     ideatest.exe /usr/local/ssl/android-19/lib/libcrypto.a`
+    
 The resulting binary will only run on an Android device
 
 
