@@ -21,20 +21,28 @@ int main(int argc, char *argv[]) {
   uint64_t diff;
   struct timespec start, end;
 
-  e = argv[1];
-  n = argv[2];
-  data = argv[3];
+  if (argc == 4) {
 
-  /* cout << "e is " << e << endl; */
-  /* cout << "n is " << n << endl; */
-  /* cout << "data is " << data << endl; */
-  
-  clock_gettime(CLOCK_MONOTONIC, &start);
-  mod(data, e, n);
-  clock_gettime(CLOCK_MONOTONIC, &end);
+    e = argv[1];
+    n = argv[2];
+    data = argv[3];
 
-  diff = BILLION * (end.tv_sec - start.tv_sec) + end.tv_nsec - start.tv_nsec;
-  printf("elapsed time = %llu nanoseconds\n", (long long unsigned int) diff);
+    /* cout << "e is " << e << endl; */
+    /* cout << "n is " << n << endl; */
+    /* cout << "data is " << data << endl; */
+    
+    clock_gettime(CLOCK_MONOTONIC, &start);
+    mod(data, e, n);
+    clock_gettime(CLOCK_MONOTONIC, &end);
+
+    diff = BILLION * (end.tv_sec - start.tv_sec) + end.tv_nsec - start.tv_nsec;
+    printf("elapsed time = %llu nanoseconds\n", (long long unsigned int) diff);
+  }
+  else {
+    cout << "Arguments missing!" << endl;
+    cout << "Entered " << argc << " arguments" << endl;
+    cout << "Execution order: <exec> <e> <n> <data>" << endl;
+  }
   return 0;
 }
 
@@ -50,7 +58,8 @@ void mod(mpf_class base, mpf_class exponent, mpf_class den)
   
    if(exponent==0) {  
      ret = zbase % zden; 
-   } else {  
+   } 
+   else {  
      while(1) { 
        if(size>0.5f) { 
 	 ret = (ret * a)%zden; 
