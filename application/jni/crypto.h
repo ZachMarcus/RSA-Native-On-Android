@@ -1,34 +1,32 @@
 
-#include <jni.h>
 
-#include "include/CL/cl.hpp"
-#include "libopencl.cpp"
 
-//need to alphabetize these
+#include <android/asset_manager.h>
+#include <android/asset_manager_jni.h>
 #include <android/bitmap.h>
 #include <android/log.h>
-#include <string.h>
-#include <math.h> //from util.h
-#include <iostream> /*from util.h*/
-#include <omp.h> //from util.h
-#include <vector> //from CLHelper.h
-//Migrated the following includes from the processor.cpp file
-#include <string>
-#include <cmath>
-#include <fstream>
-#include <sstream>
-#include <cstdlib>
-//#include <CL/cl.hpp>
-#include <cstring> //from timer.cc
-#include <iomanip> //from timer.cc
-#include <time.h>
-#include <stdio.h>
-#include <stdint.h>
-#include <stdlib.h>
 #include <assert.h>
-
+#include <cmath>
+#include <cstdlib>
+#include <cstring>
+#include <fstream>
 #include <gmp.h>
 #include <gmpxx.h>
+#include "include/CL/cl.hpp"
+#include <iomanip>
+#include <iostream>
+#include <jni.h>
+#include "libopencl.cpp"
+#include <math.h>
+#include <omp.h>
+#include <sstream>
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <string>
+#include <time.h>
+#include <vector>
 
 
 using namespace std; //possibly remove
@@ -43,18 +41,14 @@ using namespace std; //possibly remove
 #define LOGE(...) ((void)__android_log_print(ANDROID_LOG_ERROR, app_name, __VA_ARGS__))
 
 
-#include <stdlib.h>
+
 #define BILLION 1000000000L
 #define MAX_SOURCE_SIZE (0x100000)
-#include <android/asset_manager.h>
-#include <android/asset_manager_jni.h>
 
 
 
 //void GMPmod(mpf_class, mpf_class, mpf_class);
 void GMPmain(int argc, char *argv[]);
-
-
 void GMPmod(mpz_class, mpz_class, mpz_class);
 
 
