@@ -13,8 +13,8 @@ SHLIB_MAJOR=1
 SHLIB_MINOR=0.0
 SHLIB_EXT=.so.$(SHLIB_MAJOR).$(SHLIB_MINOR)
 PLATFORM=linux-x86_64
-OPTIONS=-DOPENSSL_NO_FORCE_RSA_BLINDING -Wa,--noexecstack no-ec_nistp_64_gcc_128 no-gmp no-jpake no-krb5 no-libunbound no-md2 no-rc5 no-rfc3779 no-sctp no-shared no-ssl-trace no-store no-unit-test no-zlib no-zlib-dynamic static-engine
-CONFIGURE_ARGS=linux-x86_64 -DOPENSSL_NO_FORCE_RSA_BLINDING -Wa,--noexecstack
+OPTIONS=-DRSA_FLAG_NO_BLINDING=0 -Wa,--noexecstack no-ec_nistp_64_gcc_128 no-gmp no-jpake no-krb5 no-libunbound no-md2 no-rc5 no-rfc3779 no-sctp no-shared no-ssl-trace no-store no-unit-test no-zlib no-zlib-dynamic static-engine
+CONFIGURE_ARGS=linux-x86_64 -DRSA_FLAG_NO_BLINDING=0 -Wa,--noexecstack
 SHLIB_TARGET=linux-shared
 
 # HERE indicates where this Makefile lives.  This can be used to indicate
@@ -60,7 +60,7 @@ OPENSSLDIR=/usr/local/ssl
 # PKCS1_CHECK - pkcs1 tests.
 
 CC= gcc
-CFLAG= -DOPENSSL_THREADS -D_REENTRANT -DDSO_DLFCN -DHAVE_DLFCN_H -DOPENSSL_NO_FORCE_RSA_BLINDING -Wa,--noexecstack -m64 -DL_ENDIAN -O3 -Wall -DOPENSSL_IA32_SSE2 -DOPENSSL_BN_ASM_MONT -DOPENSSL_BN_ASM_MONT5 -DOPENSSL_BN_ASM_GF2m -DSHA1_ASM -DSHA256_ASM -DSHA512_ASM -DMD5_ASM -DAES_ASM -DVPAES_ASM -DBSAES_ASM -DWHIRLPOOL_ASM -DGHASH_ASM -DECP_NISTZ256_ASM
+CFLAG= -DOPENSSL_THREADS -D_REENTRANT -DDSO_DLFCN -DHAVE_DLFCN_H -DRSA_FLAG_NO_BLINDING=0 -Wa,--noexecstack -m64 -DL_ENDIAN -O3 -Wall -DOPENSSL_IA32_SSE2 -DOPENSSL_BN_ASM_MONT -DOPENSSL_BN_ASM_MONT5 -DOPENSSL_BN_ASM_GF2m -DSHA1_ASM -DSHA256_ASM -DSHA512_ASM -DMD5_ASM -DAES_ASM -DVPAES_ASM -DBSAES_ASM -DWHIRLPOOL_ASM -DGHASH_ASM -DECP_NISTZ256_ASM
 DEPFLAG= -DOPENSSL_NO_EC_NISTP_64_GCC_128 -DOPENSSL_NO_GMP -DOPENSSL_NO_JPAKE -DOPENSSL_NO_LIBUNBOUND -DOPENSSL_NO_MD2 -DOPENSSL_NO_RC5 -DOPENSSL_NO_RFC3779 -DOPENSSL_NO_SCTP -DOPENSSL_NO_SSL_TRACE -DOPENSSL_NO_STORE -DOPENSSL_NO_UNIT_TEST
 PEX_LIBS= 
 EX_LIBS= -ldl
@@ -529,7 +529,7 @@ dist:
 dist_pem_h:
 	(cd crypto/pem; $(MAKE) -e $(BUILDENV) pem.h; $(MAKE) clean)
 
-install: all install_docs install_sw
+install: install_docs install_sw
 
 install_sw:
 	@$(PERL) $(TOP)/util/mkdir-p.pl $(INSTALL_PREFIX)$(INSTALLTOP)/bin \

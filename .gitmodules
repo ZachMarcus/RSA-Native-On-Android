@@ -1,0 +1,3 @@
+[submodule "timing/cpp/rsa_optimizations"]
+	path = timing/cpp/rsa_optimizations
+	url = https://github.com/ainterr/rsa_optimizations.git

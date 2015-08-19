@@ -8,14 +8,8 @@ extern "C" {
 #ifndef OPENSSL_DOING_MAKEDEPEND
 
 
-#ifndef OPENSSL_NO_COMP
-# define OPENSSL_NO_COMP
-#endif
 #ifndef OPENSSL_NO_EC_NISTP_64_GCC_128
 # define OPENSSL_NO_EC_NISTP_64_GCC_128
-#endif
-#ifndef OPENSSL_NO_ENGINE
-# define OPENSSL_NO_ENGINE
 #endif
 #ifndef OPENSSL_NO_GMP
 # define OPENSSL_NO_GMP
@@ -44,12 +38,6 @@ extern "C" {
 #ifndef OPENSSL_NO_SSL_TRACE
 # define OPENSSL_NO_SSL_TRACE
 #endif
-#ifndef OPENSSL_NO_SSL2
-# define OPENSSL_NO_SSL2
-#endif
-#ifndef OPENSSL_NO_SSL3
-# define OPENSSL_NO_SSL3
-#endif
 #ifndef OPENSSL_NO_STORE
 # define OPENSSL_NO_STORE
 #endif
@@ -62,11 +50,8 @@ extern "C" {
 #ifndef OPENSSL_THREADS
 # define OPENSSL_THREADS
 #endif
-#ifndef OPENSSL_NO_HW
-# define OPENSSL_NO_HW
-#endif
-#ifndef OPENSSL_NO_STATIC_ENGINE
-# define OPENSSL_NO_STATIC_ENGINE
+#ifndef OPENSSL_NO_DYNAMIC_ENGINE
+# define OPENSSL_NO_DYNAMIC_ENGINE
 #endif
 
 /* The OPENSSL_NO_* macros are also defined as NO_* if the application
@@ -74,14 +59,8 @@ extern "C" {
    who haven't had the time to do the appropriate changes in their
    applications.  */
 #ifdef OPENSSL_ALGORITHM_DEFINES
-# if defined(OPENSSL_NO_COMP) && !defined(NO_COMP)
-#  define NO_COMP
-# endif
 # if defined(OPENSSL_NO_EC_NISTP_64_GCC_128) && !defined(NO_EC_NISTP_64_GCC_128)
 #  define NO_EC_NISTP_64_GCC_128
-# endif
-# if defined(OPENSSL_NO_ENGINE) && !defined(NO_ENGINE)
-#  define NO_ENGINE
 # endif
 # if defined(OPENSSL_NO_GMP) && !defined(NO_GMP)
 #  define NO_GMP
@@ -110,12 +89,6 @@ extern "C" {
 # if defined(OPENSSL_NO_SSL_TRACE) && !defined(NO_SSL_TRACE)
 #  define NO_SSL_TRACE
 # endif
-# if defined(OPENSSL_NO_SSL2) && !defined(NO_SSL2)
-#  define NO_SSL2
-# endif
-# if defined(OPENSSL_NO_SSL3) && !defined(NO_SSL3)
-#  define NO_SSL3
-# endif
 # if defined(OPENSSL_NO_STORE) && !defined(NO_STORE)
 #  define NO_STORE
 # endif
@@ -133,8 +106,8 @@ extern "C" {
 
 #if !(defined(VMS) || defined(__VMS)) /* VMS uses logical names instead */
 #if defined(HEADER_CRYPTLIB_H) && !defined(OPENSSLDIR)
-#define ENGINESDIR "/usr/local/ssl/android-19/lib/engines"
-#define OPENSSLDIR "/usr/local/ssl/android-19"
+#define ENGINESDIR "/usr/local/ssl/lib/engines"
+#define OPENSSLDIR "/usr/local/ssl"
 #endif
 #endif
 
@@ -165,7 +138,7 @@ extern "C" {
  * - Intel P6 because partial register stalls are very expensive;
  * - elder Alpha because it lacks byte load/store instructions;
  */
-#define RC4_INT unsigned char
+#define RC4_INT unsigned int
 #endif
 #if !defined(RC4_CHUNK)
 /*
@@ -186,14 +159,14 @@ extern "C" {
 
 #if defined(HEADER_BN_H) && !defined(CONFIG_HEADER_BN_H)
 #define CONFIG_HEADER_BN_H
-#define BN_LLONG
+#undef BN_LLONG
 
 /* Should we define BN_DIV2W here? */
 
 /* Only one for the following should be defined */
-#undef SIXTY_FOUR_BIT_LONG
+#define SIXTY_FOUR_BIT_LONG
 #undef SIXTY_FOUR_BIT
-#define THIRTY_TWO_BIT
+#undef THIRTY_TWO_BIT
 #endif
 
 #if defined(HEADER_RC4_LOCL_H) && !defined(CONFIG_HEADER_RC4_LOCL_H)
@@ -205,7 +178,7 @@ extern "C" {
 
 #if defined(HEADER_BF_LOCL_H) && !defined(CONFIG_HEADER_BF_LOCL_H)
 #define CONFIG_HEADER_BF_LOCL_H
-#define BF_PTR
+#undef BF_PTR
 #endif /* HEADER_BF_LOCL_H */
 
 #if defined(HEADER_DES_LOCL_H) && !defined(CONFIG_HEADER_DES_LOCL_H)
