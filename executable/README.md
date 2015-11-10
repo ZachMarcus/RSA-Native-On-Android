@@ -31,7 +31,7 @@ Compiling the code will generate a `crypto-rsa-gmp` binary
 ###Modifying the code
 This is still under development. Other standard running operations will be added in.
 Command line arguments will soon be added.
-If it's necessary, most modifications can be made in `jni/crypto.cpp`
+If it's necessary, more options can be added in `jni/crypto.cpp`
 
 
 
