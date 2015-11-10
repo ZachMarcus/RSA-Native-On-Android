@@ -21,7 +21,7 @@ Compiling the code will generate a `crypto-rsa-gmp` binary
 * Move that binary to `/data/local/tmp/`
 * Move the two shared object libraries 
            (`libgmp.so` and `libgmpxx.so`, located in `jni`) to `/data/local/tmp`
-* Move the kernel files onto Android: `/sdcard/RSA/`
+* Move the OpenCL kernel files onto Android: `/sdcard/RSA/`
 * `adb shell` into the android device and cd to `/data/local/tmp`
 * run `export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/data/local/tmp/`
 * For longer operations you'd like to leave running, you'll need nohup
